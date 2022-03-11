@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Grid Intro</title>
+    <style>
+        .container{
+            width: 60%;
+            margin: 50px auto;
+            display: grid;
+            grid-template-columns: 200px auto auto;
+            grid-template-rows: auto;
+            grid-gap: 10px;
+        }
+        .container article{
+            border-bottom: 1px solid dodgerblue;
+            text-align: center;
+            padding: 20px;
+            background-color: bisque;
+        }
+        .container article:hover{
+            background-color: dodgerblue;
+            border: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <article>1</article>
+        <article>2</article>
+        <article>3</article>
+        <article>4</article>
+        <article>5</article>
+        <article>6</article>
+        <article>7</article>
+        <article>8</article>
+        <article>9</article>
+        <article>0</article>
+    </div>
+</body>
+</html>

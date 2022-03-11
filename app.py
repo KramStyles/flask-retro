@@ -8,5 +8,9 @@ app.env = 'development'
 def home():
     return render_template('index.html')
 
+@app.route('/grid_1')
+def grid():
+    return render_template('grid_1.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
