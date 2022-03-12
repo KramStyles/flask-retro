@@ -31,8 +31,25 @@
             height: 400px;
             text-transform: uppercase;
             grid-template: 60px auto 60px / 1fr 4fr;
+            grid-template-areas: 
+                "s f f f"
+                "s t t t"
+                "z z z z";
+                /* use . for empty spaces */
         }
         .second div:nth-child(1) {
+            grid-area: f;
+        }
+        .second div:nth-child(2) {
+            grid-area: s;
+        }
+        .second div:nth-child(3) {
+            grid-area: t;
+        }
+        .second div:nth-child(4) {
+            grid-area: z;
+        }
+        /* .second div:nth-child(1) {
             grid-column-start: 2;
             grid-column-end: 3;
         }
@@ -46,10 +63,10 @@
         }
 
         .second div:last-child{
-            /* grid-column: 1/3; */
+            /* grid-column: 1/3;
             grid-column: 2/-1;
-        }
-
+        } 
+ */
     </style>
 </head>
 <body>
