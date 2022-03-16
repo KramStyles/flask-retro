@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .container{
+            display: grid;
+            grid-template: repeat(10, 50px) / repeat(auto-fit, minmax(100px, 1fr));
+            grid-gap: 5px;
+            width: 80%;
+            margin: 50px auto;
+        }
+        .container div{
+            background-color: black;
+            color: white;
+            display: grid;
+            font-weight: bold;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+    <title>Grid 2</title>
+</head>
+<body>
+    <div class="container">
+        <div>Hello</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+        <div>7</div>
+        <div>8</div>
+        <div>9</div>
+        <div>0</div>
+        <div>11</div>
+        <div>12</div>
+    </div>
+</body>
+</html>
