@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request
 
+from model import User
+
 app = Flask(__name__)
 app.debug = True
 app.env = 'development'
@@ -12,8 +14,13 @@ def home():
 
 @app.route('/home_form', methods=['POST'])
 def home_request():
+    users = ['karm_designs', 'karm']
     user = request.form['username']
     password = request.form.get('password')
+    if user in users:
+        # Todo: Fix cannot connect to database error
+        profile = User(user)
+        return profile.get_fav_color()
     return f"({user}, {password})"
 
 
