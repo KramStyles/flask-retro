@@ -13,7 +13,7 @@ class User:
             self.conn = connect('/Users/user/Documents/Python/Personal/Flask retro/flask_db.sql', check_same_thread=False)
             self.cursor = self.conn.cursor()
             return 'ok'
-        except Error as err:
+        except Err as err:
             return err
 
     def close_conn(self):

@@ -1,10 +1,12 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, g, session
+from secrets import token_urlsafe
 
 from model import User
 
 app = Flask(__name__)
 app.debug = True
 app.env = 'development'
+app.secret_key = token_urlsafe(24)
 
 
 @app.route('/')
@@ -20,13 +22,14 @@ def check():
 
 @app.route('/home_form', methods=['POST'])
 def home_request():
-    users = ['karm_designs', 'karm']
     user = request.form['username']
+    profile = User(user)
     password = request.form.get('password')
-    if user in users:
-        # Todo: Fix cannot connect to database error
-        profile = User(user)
-        return profile.get_fav_color()
+    if user in profile.get_users():
+        g.current = user
+        session['username'] = user
+        print(session)
+        return g.get('current')
     return f"({user}, {password})"
 
 
