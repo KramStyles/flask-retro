@@ -12,6 +12,12 @@ def home():
     return render_template('index.html')
 
 
+@app.route('/check')
+def check():
+    print(User('').get_users())
+    return 'Something'
+
+
 @app.route('/home_form', methods=['POST'])
 def home_request():
     users = ['karm_designs', 'karm']

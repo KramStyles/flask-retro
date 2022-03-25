@@ -1,6 +1,6 @@
 import os
 
-from sqlite3 import connect, Error
+from sqlite3 import connect, Error as Err
 
 
 class User:
@@ -32,8 +32,23 @@ class User:
                 return f"User: {self.user}'s Favorite color is {color}"
             else:
                 return single_connect
-        except (Error, Exception) as err:
+        except (Err, Exception) as err:
             return print(err)
+        finally:
+            self.close_conn()
+
+    def get_users(self):
+        sql = 'SELECT username from users'
+        try:
+            conn = self.connect()
+            if conn == 'ok':
+                self.cursor.execute(sql)
+                # Pulls out the names from the tuple and appends them individually to a new list
+                return [item[0] for item in self.cursor.fetchall()]
+            else:
+                return "connection error"
+        except (Err, Exception) as err:
+            return err
         finally:
             self.close_conn()
 
