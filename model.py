@@ -1,6 +1,6 @@
 import os
 
-from sqlite3 import connect, Error as Err
+from sqlite3 import connect, Error as Err, dbapi2
 
 
 class User:
@@ -52,6 +52,21 @@ class User:
         finally:
             self.close_conn()
 
+    def read(self, table='users', conditions='', what='*'):
+        self.connect()
+        if conditions:
+            conditions = 'where ' + conditions
+        sql = f"SELECT {what} FROM {table} {conditions};"
+        try:
+            result = self.cursor.execute(sql)
+            msg = result.fetchall()
+        except (Exception) as err:
+            msg = err
+        finally:
+            self.close_conn()
+            return msg
+
+
     def create(self, data, table='users', columns='', testing=False):
         self.connect()
         if columns:
@@ -87,6 +102,10 @@ class User:
         finally:
             self.close_conn()
             return msg
+
+    def authenticate(self, username, password):
+        db_pass = self.read(conditions=f"username='{username}'", what='password')[0][0]
+        return password == db_pass
 
     def check_user_exists(self):
         all_users = self.get_users()

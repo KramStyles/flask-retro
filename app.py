@@ -14,6 +14,12 @@ def home():
     return render_template('index.html')
 
 
+@app.route('/signin')
+def login():
+    return render_template('login.html')
+
+
+
 @app.route('/check')
 def check():
     print(User('').get_users())
@@ -36,17 +42,21 @@ def home_request():
             msg = profile.create(f"'{user}', '{password}', 'Null'")
     return f'<h2>{msg}</h2>'
 
-@app.route('/login')
-def login():
-    pass
 
-@app.route('/sign_in')
+@app.route('/sign_in', methods=['POST'])
 def sign_in():
-    g.current = user
-    session['username'] = user
-    print(session)
-    return g.get('current')
-    pass
+    user = request.form['username']
+    profile = User(user)
+    password = request.form.get('password')
+    msg = "User not registered"
+    if profile.check_user_exists():
+        if profile.authenticate(user, password):
+            g.current = user
+            session['username'] = user
+            print(session)
+            msg =  g.get('current')
+        else: msg = "Invalid Authentication"
+    return f'<h2>{msg}</h2>'
 
 
 @app.route('/grid_1')
