@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, g, session
+from flask import Flask, render_template, request, g, session, redirect, url_for
 from secrets import token_urlsafe
 
 from model import User
@@ -18,7 +18,14 @@ def home():
 def login():
     return render_template('login.html')
 
+@app.route('/reg')
+def register():
+    return render_template('register.html')
 
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('home'))
 
 @app.route('/check')
 def check():
@@ -52,9 +59,9 @@ def sign_in():
     if profile.check_user_exists():
         if profile.authenticate(user, password):
             g.current = user
-            session['username'] = user
+            session['username'] = g.get('current')
             print(session)
-            msg =  g.get('current')
+            return redirect(url_for('home'))
         else: msg = "Invalid Authentication"
     return f'<h2>{msg}</h2>'
 

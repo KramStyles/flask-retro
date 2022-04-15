@@ -1,0 +1,17 @@
+{% extends 'structure.html' %}
+{% block head %}Hello, Login{% endblock head %}
+{% block body %}
+
+    <form action="/sign_in" method="post">
+        <div class="form-group">
+            <label for="text">Username:</label>
+            <input type="text" class="form-control" placeholder="Enter Username" id="username" name='username'>
+          </div>
+
+          <div class="form-group">
+            <label for="pwd">Password:</label>
+            <input type="password" class="form-control" placeholder="Enter password" id="pwd" name='password'>
+          </div>
+          <button type="submit" class="btn btn-success">Sign In</button>
+    </form>
+{% endblock body %}
