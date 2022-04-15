@@ -11,6 +11,7 @@ app.secret_key = token_urlsafe(24)
 
 @app.route('/')
 def home():
+    print(session)
     return render_template('index.html')
 
 
