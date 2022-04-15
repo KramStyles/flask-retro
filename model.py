@@ -52,7 +52,48 @@ class User:
         finally:
             self.close_conn()
 
+    def create(self, data, table='users', columns='', testing=False):
+        self.connect()
+        if columns:
+            columns = f"({columns})"
+            values = data
+        else:
+            values = 'null, '
+            values += data
+
+        sql = f"""INSERT INTO {table} {columns} VALUES ({values})"""
+        try:
+            self.cursor.execute(sql)
+            if not testing: self.conn.commit()
+            msg = 'ok'
+        except (Exception) as err:
+            msg = err
+        finally:
+            self.close_conn()
+            return msg
+
+    def delete(self, conditions='', table='users'):
+        self.connect()
+        if conditions:
+            conditions = 'where ' + conditions
+
+        sql = f"DELETE FROM {table} {conditions};"
+        try:
+            self.cursor.execute(sql)
+            self.conn.commit()
+            msg = 'ok'
+        except Exception as err:
+            msg = err
+        finally:
+            self.close_conn()
+            return msg
+
+    def check_user_exists(self):
+        all_users = self.get_users()
+        return self.user in all_users
+
 
 if __name__ == '__main__':
     profile = User('karm')
-    profile.get_fav_color()
+    print(profile.get_users())
+

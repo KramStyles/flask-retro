@@ -25,12 +25,30 @@ def home_request():
     user = request.form['username']
     profile = User(user)
     password = request.form.get('password')
-    if user in profile.get_users():
-        g.current = user
-        session['username'] = user
-        print(session)
-        return g.get('current')
-    return f"({user}, {password})"
+    confirm = request.form.get('confirm')
+    msg = 'User already exists in database'
+    if not profile.check_user_exists():
+        print('Password:', password)
+        if password.strip() == '':
+            msg = 'Password should not be empty'
+        if confirm != password:
+            msg = 'Passwords do not match'
+        else:
+            msg = 'supposed to create'
+            # msg = profile.create(f"'{user}', '{password}', 'Null'")
+    return f'<h2>{msg}</h2>'
+
+@app.route('/login')
+def login():
+    pass
+
+@app.route('/sign_in')
+def sign_in():
+    g.current = user
+    session['username'] = user
+    print(session)
+    return g.get('current')
+    pass
 
 
 @app.route('/grid_1')
