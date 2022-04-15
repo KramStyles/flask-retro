@@ -28,14 +28,12 @@ def home_request():
     confirm = request.form.get('confirm')
     msg = 'User already exists in database'
     if not profile.check_user_exists():
-        print('Password:', password)
         if password.strip() == '':
             msg = 'Password should not be empty'
-        if confirm != password:
+        elif confirm != password:
             msg = 'Passwords do not match'
         else:
-            msg = 'supposed to create'
-            # msg = profile.create(f"'{user}', '{password}', 'Null'")
+            msg = profile.create(f"'{user}', '{password}', 'Null'")
     return f'<h2>{msg}</h2>'
 
 @app.route('/login')
